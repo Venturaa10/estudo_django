@@ -1,5 +1,3 @@
-### README para Estudos de Python com o Framework Django
-
 ```markdown
 # Estudos de Python com o Framework Django do Curso da Alura
 
