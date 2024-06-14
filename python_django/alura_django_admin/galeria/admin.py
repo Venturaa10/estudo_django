@@ -1,3 +1,16 @@
 from django.contrib import admin
+from galeria.models import Fotografia
+
+class ListandoFotografias(admin.ModelAdmin):
+    '''Essa classe é responsavél por alterar o modo de exibição do objeto no banco de dados'''
+    # Nesse caso está passando as informações entre () parenteses
+    list_display = ('id', 'nome', 'legenda') # Está retornando a id, nome e a legenda que são os atributos da classe
+
+    list_display_links = ('id', 'nome') # Transforma o atributo em link, quando exibido no bando de dados, ficara com uma cor diferente (como link realmente), ao clicar sera redirecionado as informações do objeto
+
+    search_fields = ('nome',) # As buscas no banco de dados será através do nome do objeto, a ',' no final é importante, pois o parametro deve ser passado como uma tupla
+
 
 # Register your models here.
+'''Registro da classe Fotografia no banco de dados do django admin'''
+admin.site.register(Fotografia, ListandoFotografias)
