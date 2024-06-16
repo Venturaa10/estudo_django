@@ -10,6 +10,9 @@ class ListandoFotografias(admin.ModelAdmin):
 
     search_fields = ('nome',) # As buscas no banco de dados será através do nome do objeto, a ',' no final é importante, pois o parametro deve ser passado como uma tupla
 
+    list_filter = ('categoria',) # Cria um tipo de filtro no admin, nesse caso o filtro será feito através da categoria da foto
+
+    list_per_page = 10 # Tamanho maximo de itens por pagina, ou seja, para todos os objetos dentro do models em admin, será exibido 10 por pagina
 
 # Register your models here.
 '''Registro da classe Fotografia no banco de dados do django admin'''
