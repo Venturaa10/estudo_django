@@ -17,7 +17,9 @@ class Fotografia(models.Model):
     legenda = models.CharField(max_length=150, null=False, blank=False) 
     categoria = models.CharField(max_length=100, choices=OPCOES_CATEGORIA, default='')
     descricao = models.TextField(null=False, blank=False)
-    foto = models.CharField(max_length=100, null=False, blank=False)
+
+    # A foto será armazenada com o caminha upload_to='caminho' que indica o ano, mes e dia.
+    foto = models.ImageField(upload_to='fotos/%y/%m/%d/', blank=True)
 
     # Ao criar um novo item (Informação de uma nova foto na galeria do site), o padrão vai ser o item não ser publicado. Só após a opção for alterada para "True"
     # Será exibido um caixa de marcação ao criar uma nova fotografia em admin.
