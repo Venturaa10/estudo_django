@@ -26,6 +26,9 @@ class Fotografia(models.Model):
     publicada = models.BooleanField(default=False)  
     # Ao criar um novo item, será possivel incluir a hora e a data de criação, caso não seja informado, vai retornar a hora e a data daquele momento 
     data_fotografia = models.DateTimeField(default=datetime.now, blank=False)
+
     def __str__(self):
-        '''Adicionar esse metodo str retornando o nome é uma boa pratica'''
-        return f'Fotografia [nome={self.nome}]'
+        '''Adicionar esse metodo str retornando o nome é uma boa pratica
+        Por exemplo: Ao modificar algum item no banco de dados em admin, será exibida uma mensagem que retornara o nome desse objeto alterado
+        '''
+        return self.nome
