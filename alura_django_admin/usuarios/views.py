@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from usuarios.forms import LoginForms # Importando o objeto LoginForms responsavel pelo formulario
+from usuarios.forms import LoginForms, CadastroForms # Importando os objetos responsaveis pelas alterações e validações no formulario (tag 'form' no HTML)
 # Create your views here.
 
 def login(request):
@@ -9,5 +9,7 @@ def login(request):
 
 
 def cadastro(request):
-    return render(request, 'usuarios/cadastro.html')
+    form = CadastroForms() # Instanciando o objeto LoginForms em uma variavel
+
+    return render(request, 'usuarios/cadastro.html', {'form': form})
     
