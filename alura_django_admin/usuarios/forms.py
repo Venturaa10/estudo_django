@@ -56,7 +56,7 @@ class CadastroForms(forms.Form):
         )
     )
 
-    senha=forms.CharField(
+    senha_1=forms.CharField(
         label='Senha',
         required=True, # Torna o preenchimento desse campo obrigatorio
         max_length=70,

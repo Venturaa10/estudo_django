@@ -41,7 +41,8 @@
                 </nav>
             </section>
             <section class="galeria" style="margin-left: 5em">
-                <form action="" method="">
+                <!-- A ação está direcionando as informações dessa tag formulario para a url 'login' no arquivo views desse app (usuarios) -->
+                <form action="{% url 'login' %}" method="POST">
                     <!-- O Código abaixo é para garantir a segurança das informações que estão sendo passadas pelo formulario.
                     É uma boa pratica colocar logo abaixo da abertura da tag 'form' 
                     -->
