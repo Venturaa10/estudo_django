@@ -2,7 +2,14 @@
 <div class="pagina-inicial">
     <header class="cabecalho">
         <img src="{% static '/assets/logo/Logo(2).png' %}" alt="Logo da Alura Space" />
+        <!-- Ocorre uma mensagem que foi configurada em views.py -->
+        {% for message in messages %}
+            <div class="alert alert-primary" role="alert">
+                <p style="color: whitesmoke;">{{ message }}</p>
+            </div>
+            {% endfor %}
         <div class="cabecalho__busca">
+
             <div class="busca__fundo">
                 <!-- Ao buscar  será redirecionado ao template "buscar"-->
                 <form action="{% url 'buscar' %}">

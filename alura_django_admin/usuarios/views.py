@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from usuarios.forms import LoginForms, CadastroForms # Importando os objetos responsaveis pelas alterações e validações no formulario (tag 'form' no HTML)
 from django.contrib.auth.models import User
-from django.contrib import auth
+from django.contrib import auth # Importando o modulo para realizar a autenticação
+from django.contrib import messages # Importando o modulo responsavél por retornar mensagens ao usuario
 # Create your views here.
 
 def login(request):
@@ -29,9 +30,11 @@ def login(request):
 
         if usuario is not None:
             auth.login(request, usuario)
+            messages.success(request,f'{nome} logado com sucesso!') # Retorna uma mensagem de sucesso em caso de login efetuado
             return redirect('index')
         
         else:
+            messages.error(request, 'Erro ao efetuar login!') # Retorna uma mensagem de erro em caso de login não efetuado
             return redirect('login')
         
     return render(request, 'usuarios/login.html', {'form': form})
@@ -47,6 +50,7 @@ def cadastro(request):
                 
             if form['senha_1'].value() != form['senha_2'].value():
                 ''' Se o valor da senha 1 for diferente da senha 2, o usuario será redirecionado novamente para o cadastro'''
+                messages.error(request, 'Senhas fornecidas não são iguais')
                 return redirect('cadastro')
             
             # Os nomes dentro dos colchetes devem ser as mesmas do objeto criado no arquivo 'forms' para trabalhar com formulario
@@ -58,6 +62,7 @@ def cadastro(request):
                 '''Se o nome de usuario informado no cadastro já existir no banco de dados, o usuario será redirecionado para a pagina de cadastro novamente
                 "username" é o nome que aparece no arquivo de banco de dados -> em "auth_user" onde é exibido todos os usuarios cadastrados no admin
                 '''
+                messages.error(request, 'Usuario já existe')
                 return redirect('cadastro')
             
             usuario = User.objects.create_user(
@@ -68,6 +73,7 @@ def cadastro(request):
             )
             usuario.save() # Salvando o Usuario
 
+            messages.success(request, 'Cadastro realizado com sucesso!')
             return redirect('login') # Redirecionando a pagina de login após o cadastro ser concluído com sucesso   
           
     return render(request, 'usuarios/cadastro.html', {'form': form})
