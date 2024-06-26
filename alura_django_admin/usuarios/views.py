@@ -1,12 +1,39 @@
 from django.shortcuts import render, redirect
 from usuarios.forms import LoginForms, CadastroForms # Importando os objetos responsaveis pelas alterações e validações no formulario (tag 'form' no HTML)
 from django.contrib.auth.models import User
-
+from django.contrib import auth
 # Create your views here.
 
 def login(request):
     form = LoginForms() # Instanciando o objeto LoginForms em uma variavel
 
+    if request.method == 'POST':
+        form = LoginForms(request.POST) # Recria o formulario com os dados enviados pelo usuario, por isso é utilizado o "request.POST" como parametro
+
+        if form.is_valid():
+            '''Variaveis responsaveis por armazenar o valor do atributo em "form.py" da classe "LoginForms" na qual o usuario vai preencher'''
+            nome = form['nome_login'].value()
+            senha = form['senha'].value()
+            
+        ''' 
+        Tenta encontrar um usuário no banco de dados que tenha o nome de usuário "nome" e a "senha" senha. Se encontrar, retorna esse usuário. Se não encontrar, retorna None.
+
+        Realiza a autenticação do usuario com o nome e a senha fornecidos
+        Verifica se os dados fornecidos estão corretos
+        '''
+        usuario = auth.authenticate(
+            request,
+            username = nome,
+            password = senha         
+        )
+
+        if usuario is not None:
+            auth.login(request, usuario)
+            return redirect('index')
+        
+        else:
+            return redirect('login')
+        
     return render(request, 'usuarios/login.html', {'form': form})
 
 
