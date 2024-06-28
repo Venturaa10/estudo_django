@@ -1,0 +1,9 @@
+{% if messages %}
+<!-- Retorna uma mensagem de error ou sucesso de acordo com as validações feita através do arquivo forms.py -->
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}" role="alert">
+        {{ message }}
+    </div>
+    {% endfor %}
+
+{% endif %}
