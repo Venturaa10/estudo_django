@@ -82,4 +82,32 @@ class CadastroForms(forms.Form):
         )
     )
 
-    
+    def clean_nome_cadastro(self):
+        '''Para validação é necessario seguir o formato acima: "clean_campo_para_validar(self)" 
+        Validação para verificar se existem espaços em brancos no nome do usuario fornecido 
+        '''
+        nome = self.cleaned_data.get('nome_cadastro')
+
+        if nome:
+            nome = nome.strip() # Retirando os caracteres de "espaço" do nome fornecido pelo usuario
+
+            if ' ' in nome:
+                raise forms.ValidationError('Espaços não são permitidos nesse campo')
+            
+            else:
+                return nome
+        
+    def clean_senha_2(self):
+        '''
+        Validando se as senhas fornecidas são iguais, se a senha 2 é igual a senha 1
+        Retorna uma mensagem no template ao usuario, em caso de senhas diferentes.
+        '''
+        senha_1 = self.cleaned_data.get('senha_1')
+        senha_2 = self.cleaned_data.get('senha_2')
+
+        if senha_1 and senha_2:
+            if senha_1 != senha_2:
+                raise forms.ValidationError('As senhas fornecidas não são iguais!') 
+            
+            else:
+                return senha_2

@@ -47,11 +47,6 @@ def cadastro(request):
         form = CadastroForms(request.POST) # Pegando todas as informações do form acima, e armazenando em uma outra variavel também chamada 'form'
 
         if form.is_valid():
-                
-            if form['senha_1'].value() != form['senha_2'].value():
-                ''' Se o valor da senha 1 for diferente da senha 2, o usuario será redirecionado novamente para o cadastro'''
-                messages.error(request, 'Senhas fornecidas não são iguais')
-                return redirect('cadastro')
             
             # Os nomes dentro dos colchetes devem ser as mesmas do objeto criado no arquivo 'forms' para trabalhar com formulario
             nome=form['nome_cadastro'].value()
