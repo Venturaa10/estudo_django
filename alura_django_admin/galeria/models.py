@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -26,6 +27,16 @@ class Fotografia(models.Model):
     publicada = models.BooleanField(default=False)  
     # Ao criar um novo item, será possivel incluir a hora e a data de criação, caso não seja informado, vai retornar a hora e a data daquele momento 
     data_fotografia = models.DateTimeField(default=datetime.now, blank=False)
+    usuario = models.ForeignKey( 
+        # Esse campo 'usuario' permite que cada instancia do modelo atual faça referencia a uma instancia do modelo 'User'
+        
+        to=User, # Define que o campo 'usuario' é uma chave estrangeira que se refere ao modelo 'User'
+        on_delete=models.SET_NULL, # Caso o usuario responsavel por ter colocado determinada foto na galeria seja excluído, o campo será definido como nulo (null)
+        null=True,
+        blank=False,
+        related_name='user', # Define o nome que será usado para referenciar este relacionamento reverso do lado do modelo User.
+    )
+
 
     def __str__(self):
         '''Adicionar esse metodo str retornando o nome é uma boa pratica

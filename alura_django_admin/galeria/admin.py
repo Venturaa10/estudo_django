@@ -10,7 +10,7 @@ class ListandoFotografias(admin.ModelAdmin):
 
     search_fields = ('nome',) # As buscas no banco de dados será através do nome do objeto, a ',' no final é importante, pois o parametro deve ser passado como uma tupla
 
-    list_filter = ('categoria',) # Cria um tipo de filtro no admin, nesse caso o filtro será feito através da categoria da foto
+    list_filter = ('categoria', 'usuario') # Cria um tipo de filtro no admin, nesse caso o filtro será feito através da categoria da foto
 
     list_editable = ('publicada',) # O Publicada será exibido no admin sem precisar entrar nas informações do item e com possibilidade de edição na propria pagina / display
 
