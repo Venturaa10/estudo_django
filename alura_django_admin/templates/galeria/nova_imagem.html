@@ -1,1 +1,31 @@
-<h1>Nova imagem aqui URL</h1>
+{% extends 'shared/base.html' %}
+{% load static %}
+{% block content %}
+
+<section class="galeria" style="margin-left: 5em">
+    <!-- A ação está direcionando as informações dessa tag formulario para a url 'login' no arquivo views desse app (usuarios) -->
+    <form action="{% url 'login' %}" method="POST">
+        <!-- O Código abaixo é para garantir a segurança das informações que estão sendo passadas pelo formulario.
+                    É uma boa pratica colocar logo abaixo da abertura da tag 'form' 
+                    -->
+        {% csrf_token %}
+        <div class="row">
+            <!-- Interando pelos itens dentro do formulario -->
+            {% for field in form.visible_fields %}
+            <div class="col-12 col-lg-12" style="margin-bottom: 10px;">
+                <!-- Colocando todos os itens que serão iterados dentro dessa div -->
+                <label style="color:#D9D9D9; margin-bottom: 5px;" for="{{ field.id_for_label }}">{{field.label}}</label>
+                {{ field }}
+            </div>
+            {% endfor %}
+        </div>
+        <div>
+            <button class="btn btn-success col-12" style="padding: top 5px;" type="submit">Logar</button>
+        </div>
+    </form>
+</section>
+</main>
+</div>
+</body>
+
+{% endblock %}
