@@ -1,5 +1,5 @@
 from django.contrib import admin
-from galeria.models import Fotografia
+from apps.galeria.models import Fotografia
 
 class ListandoFotografias(admin.ModelAdmin):
     '''Essa classe é responsavél por alterar o modo de exibição do objeto no banco de dados'''

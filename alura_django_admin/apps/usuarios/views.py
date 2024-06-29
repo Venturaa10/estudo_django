@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from usuarios.forms import LoginForms, CadastroForms # Importando os objetos responsaveis pelas alterações e validações no formulario (tag 'form' no HTML)
+from apps.usuarios.forms import LoginForms, CadastroForms # Importando os objetos responsaveis pelas alterações e validações no formulario (tag 'form' no HTML)
 from django.contrib.auth.models import User
 from django.contrib import auth # Importando o modulo para realizar a autenticação
 from django.contrib import messages # Importando o modulo responsavél por retornar mensagens ao usuario
