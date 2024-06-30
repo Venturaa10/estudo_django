@@ -37,7 +37,7 @@ def buscar(request):
             '''Faz referencia ao nome que estou buscando e o nome do objeto em que está sendo buscado'''
             fotografias = fotografias.filter(nome__icontains=nome_a_buscar)
         
-    return render(request, 'galeria/buscar.html', {"cards": fotografias})
+    return render(request, 'galeria/index.html', {"cards": fotografias})
 
 
 def nova_imagem(request):
@@ -66,8 +66,8 @@ def nova_imagem(request):
 
 def editar_imagem(request, foto_id):
     '''Metodo responsavel por alterar as informações do objeto identificado pelo o id'''
-    
-    fotografia = Fotografia.objects.get(id=foto_id) # Variavel responsavél por pegar o "id" do objeto     
+
+    fotografia = Fotografia.objects.get(id=foto_id) # Variavel responsavél por pegar o "id" do objeto dentro do models "Fotografia"   
 
     form = FotografiaForms(instance=fotografia) # Instanciando no formulario "FotografiaForms" as informações do objeto no qual está sendo identificado pelo proprio "id" do objeto, ou seja, o formulario é autopreenchido com as informações de determinado objeto que é identificado pelo "id"
 
@@ -83,6 +83,16 @@ def editar_imagem(request, foto_id):
     return render(request, 'galeria/editar_imagem.html', {'form':form, 'foto_id': foto_id})
 
 
-def deletar_imagem(request):
-    pass
+def deletar_imagem(request, foto_id):
+    fotografia = Fotografia.objects.get(id=foto_id)
 
+    fotografia.delete() # Deletando o objeto do banco de dados
+    messages.success(request, 'Fotografia deletada com sucesso!')
+    return redirect('index')
+
+
+def filtro(request, categoria):
+    fotografias = Fotografia.objects.order_by('data_fotografia').filter(publicada=True, categoria=categoria)
+
+    # O nome é "cards", pois na views index o proprio template index já espera uma variavel chamada "cards" que contém fotografias
+    return render(request, 'galeria/index.html', {'cards': fotografias})

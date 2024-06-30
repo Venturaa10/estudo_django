@@ -18,11 +18,12 @@
                     <p class="imagem__texto">{{ fotografia.descricao }}</p>
                 </div>
                 <div>
+                    <!--  Buscando a id da fotografia nas urls abaixo -->
                     <a href="{% url 'editar_imagem' fotografia.id %}">
                         <button class="btn btn-success col-12" style="padding: top 5px;" type="submit">Editar
                             Fotografia</button>
                     </a>
-                    <a href="{% url 'deletar_imagem' %}">
+                    <a href="{% url 'deletar_imagem' fotografia.id %}">
                         <button class="btn btn-danger col-12" style="padding: top 5px;" type="submit">Deletar
                             Fotografia</button>
 
