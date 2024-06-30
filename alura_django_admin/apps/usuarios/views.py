@@ -16,27 +16,29 @@ def login(request):
             nome = form['nome_login'].value()
             senha = form['senha'].value()
             
-        ''' 
-        Tenta encontrar um usuário no banco de dados que tenha o nome de usuário "nome" e a "senha" senha. Se encontrar, retorna esse usuário. Se não encontrar, retorna None.
+            ''' 
+            Tenta encontrar um usuário no banco de dados que tenha o nome de usuário "nome" e a "senha" senha. Se encontrar, retorna esse usuário. Se não encontrar, retorna None.
 
-        Realiza a autenticação do usuario com o nome e a senha fornecidos
-        Verifica se os dados fornecidos estão corretos
-        '''
-        usuario = auth.authenticate(
-            request,
-            username = nome,
-            password = senha         
-        )
+            Realiza a autenticação do usuario com o nome e a senha fornecidos
+            Verifica se os dados fornecidos estão corretos
+            '''
+            usuario = auth.authenticate(
+                request,
+                username=nome,
+                password=senha
+            )
 
-        if usuario is not None:
-            auth.login(request, usuario)
-            messages.success(request,f'{nome} logado com sucesso!') # Retorna uma mensagem de sucesso em caso de login efetuado
-            return redirect('index')
+            if usuario is not None:
+                auth.login(request, usuario)
+                messages.success(request, f'{nome} logado com sucesso!') # Retorna uma mensagem de sucesso em caso de login efetuado
+                return redirect('index')
+            else:
+                messages.error(request, 'Erro ao efetuar login!') # Retorna uma mensagem de erro em caso de login não efetuado
+                return redirect('login')
         
         else:
-            messages.error(request, 'Erro ao efetuar login!') # Retorna uma mensagem de erro em caso de login não efetuado
-            return redirect('login')
-        
+           pass
+
     return render(request, 'usuarios/login.html', {'form': form})
 
 

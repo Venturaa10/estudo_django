@@ -22,9 +22,8 @@ class Fotografia(models.Model):
     # A foto será armazenada com o caminha upload_to='caminho' que indica o ano, mes e dia.
     foto = models.ImageField(upload_to='fotos/%y/%m/%d/', blank=True)
 
-    # Ao criar um novo item (Informação de uma nova foto na galeria do site), o padrão vai ser o item não ser publicado. Só após a opção for alterada para "True"
     # Será exibido um caixa de marcação ao criar uma nova fotografia em admin.
-    publicada = models.BooleanField(default=False)  
+    publicada = models.BooleanField(default=True)  
     # Ao criar um novo item, será possivel incluir a hora e a data de criação, caso não seja informado, vai retornar a hora e a data daquele momento 
     data_fotografia = models.DateTimeField(default=datetime.now, blank=False)
     usuario = models.ForeignKey( 
