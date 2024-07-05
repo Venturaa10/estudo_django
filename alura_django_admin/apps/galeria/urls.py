@@ -1,6 +1,6 @@
 from django.urls import path
 from apps.galeria.views import \
-    index, imagem, buscar, nova_imagem, editar_imagem, deletar_imagem, filtro
+     index, imagem, buscar, nova_imagem, editar_imagem, deletar_imagem, filtro
 
 urlpatterns = [
     # Algumas rotas recebem um número inteiro (int:) ou string (str:) como argumento que representa o "id" do objeto na qual está sendo chamado, ou o tipo de filtro 
@@ -12,3 +12,4 @@ urlpatterns = [
     path('deletar-imagem/<int:foto_id>', deletar_imagem, name='deletar_imagem'),
     path('filtro/<str:categoria>', filtro, name='filtro'),
 ]
+

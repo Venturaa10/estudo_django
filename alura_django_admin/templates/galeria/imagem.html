@@ -6,7 +6,7 @@
         <div class="imagem__conteudo">
             <!-- Se a imagem não exista ou não retorne nenhum valor, será exibido uma imagem de "not-found" informando que a imagem não foi localizada -->
             {% if fotografia.foto == '' or fotografia.foto == null %}
-            <img class="imagem__imagem" src="{% static '/assets/imagens/galeria/not-found.png'%}">
+            <img class="imagem__imagem" src="{% static 'assets/imagens/galeria/not-found.png'%}">
             <!-- Se não, será exibido a imagem informada -->
             {% else %}
             <img class="imagem__imagem" src="{{ fotografia.foto.url }}">
