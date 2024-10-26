@@ -23,3 +23,15 @@ class Curso(models.Model):
 
     def __str__(self):
         return self.codigo
+    
+
+class Matricula(models.Model):
+    PERIODO = (
+        ('M', 'Matutino'),
+        ('V', 'Verpestino'), 
+        ('N', 'Noturno'),
+    )
+    # Cascade -> Quando um estudante for deletado, todas as matriculas associadas ao objeto (estudante) também serão deletadas
+    estudante = models.ForeignKey(Estudante, on_delete = models.CASCADE) # Cria uma relação com o modelo Estudante
+    curso = models.ForeignKey(Curso, on_delete = models.CASCADE) # Cria uma relação com o modelo Curso
+    periodo = models.CharField(max_length = 1, choices = PERIODO ,blank = False,null = False, default = 'M')
