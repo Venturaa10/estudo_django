@@ -1,3 +1,11 @@
-from django.shortcuts import render
+# Importa JsonResponse
+from django.http import JsonResponse 
 
-# Create your views here.
+def estudantes(request):
+    if request.method == 'GET':
+        estudante = {
+            'id': '1',
+            'nome': 'Vincius'
+        }
+    # Transforma o dicionario em um tipo Json
+    return JsonResponse(estudante)
