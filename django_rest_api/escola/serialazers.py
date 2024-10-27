@@ -1,14 +1,20 @@
 from rest_framework import serializers
 from escola.models import Estudante, Curso, Matricula
 
+
+''' 
+--> Serializa os campos dos modelos para formatos como JSON, permitindo a exibição em APIs
+--> Prepara os dados para serem enviados em uma API.
+--> Os nomes das classes seguem uma nomeclatura com a finalidade de manter boas praticas de legibilidade do codigo.
+ '''
 class EstudanteSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Estudante
-        fields = ['id', 'nome', 'email', 'cpf', 'data_nascimento', 'celular'] 
+        model = Estudante # Models na qual o serializer está associado.
+        fields = ['id', 'nome', 'email', 'cpf', 'data_nascimento', 'celular'] # Campos que serão exibidos. 
 
 
 ''' 
-all -> Indica que vai ser usuado todos os campos do modelo 
+all -> Indica que vai ser usado todos os campos do modelo 
 exclude = [ ] -> Indica que nenhum campo será excluído
 '''
 class CursoSerializer(serializers.ModelSerializer):
@@ -21,3 +27,22 @@ class MatriculaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Matricula
         exclude = []
+
+
+class ListaMatriculasEstudanteSerializer(serializers.ModelSerializer):
+    curso = serializers.ReadOnlyField(source='curso.descricao') # Busca valor do campo "dicionario" no objeto relacionado "curso" e define como somente leitura
+    periodo = serializers.SerializerMethodField()
+    class Meta:
+        model = Matricula
+        fields = ['curso', 'periodo']
+
+    def get_periodo(self, obj):
+        # Função que captura a informação do valor do periodo
+        return obj.get_periodo_display()
+    
+
+class ListaMatriculasCursoSerializer(serializers.ModelSerializer):
+    estudante_nome = serializers.ReadOnlyField(source = 'estudante.nome')
+    class Meta:
+        model = Matricula
+        fields = ['estudante_nome']
