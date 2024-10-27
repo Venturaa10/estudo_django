@@ -1,13 +1,16 @@
 from escola.models import Estudante, Curso, Matricula
 from escola.serialazers import EstudanteSerializer, CursoSerializer, MatriculaSerializer, ListaMatriculasEstudanteSerializer, ListaMatriculasCursoSerializer
 from rest_framework import viewsets, generics # Importa viewsets, generics
+# Importa as autenticações de usuario, as linhas de autenticação estão configuradas em settings.
+# from rest_framework.authentication import BasicAuthentication
+# from rest_framework.permissions import IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly
 
 '''
 --> Os nomes das classes seguem uma nomeclatura com a finalidade de manter boas praticas de legibilidade do codigo.
+--> Os nomes das variaveis estão em um formato padrão para funcionalidade do codigo.
 '''
 
 class EstudanteViewSet(viewsets.ModelViewSet):
-    ''' Os nomes das variaveis são padrão de boa pratica'''
     queryset = Estudante.objects.all() # Armazena os objetos do modelo
     serializer_class = EstudanteSerializer # O Serializer responsavél pelo modelo
 

@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from escola.models import Estudante, Curso, Matricula
 
-
 ''' 
 --> Serializa os campos dos modelos para formatos como JSON, permitindo a exibição em APIs
 --> Prepara os dados para serem enviados em uma API.
