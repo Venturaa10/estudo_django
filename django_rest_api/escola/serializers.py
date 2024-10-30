@@ -11,6 +11,18 @@ class EstudanteSerializer(serializers.ModelSerializer):
         model = Estudante # Models na qual o serializer está associado.
         fields = ['id', 'nome', 'email', 'cpf', 'data_nascimento', 'celular'] # Campos que serão exibidos. 
 
+    def validate(self, dados):
+        '''Método responsavel por realizar as validações dos campos do estudante'''
+        if len(dados['cpf']) != 11:
+            raise serializers.ValidationError({'cpf':'O campo CPF deve conter 11 digitos.'})
+        
+        if not dados['nome'].isalpha():
+            raise serializers.ValidationError({'nome':'O nome só deve conter letras'})
+        
+        if len(dados['celular']) != 13:
+            raise serializers.ValidationError({'celular':'O campo celular deve conter 13 digitos.'})
+
+        return dados
 
 ''' 
 all -> Indica que vai ser usado todos os campos do modelo 
@@ -20,6 +32,7 @@ class CursoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Curso
         fields = '__all__'
+
 
 
 class MatriculaSerializer(serializers.ModelSerializer):

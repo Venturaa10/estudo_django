@@ -1,5 +1,5 @@
 from escola.models import Estudante, Curso, Matricula
-from escola.serialazers import EstudanteSerializer, CursoSerializer, MatriculaSerializer, ListaMatriculasEstudanteSerializer, ListaMatriculasCursoSerializer
+from escola.serializers import EstudanteSerializer, CursoSerializer, MatriculaSerializer, ListaMatriculasEstudanteSerializer, ListaMatriculasCursoSerializer
 from rest_framework import viewsets, generics # Importa viewsets, generics
 # Importa as autenticações de usuario, as linhas de autenticação estão configuradas em settings.
 # from rest_framework.authentication import BasicAuthentication
