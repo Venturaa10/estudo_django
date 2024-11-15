@@ -59,3 +59,10 @@ class ListaMatriculasCursoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Matricula
         fields = ['estudante_nome']
+
+
+# Versionamento da API.
+class EstudanteSerializerV2(serializers.ModelSerializer):
+    class Meta:
+        model = Estudante # Models na qual o serializer está associado.
+        fields = ['id', 'nome', 'email', 'celular'] # Campos que serão exibidos. 

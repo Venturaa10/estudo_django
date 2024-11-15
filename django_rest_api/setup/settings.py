@@ -136,5 +136,8 @@ REST_FRAMEWORK = {
     ],
     # Adiciona paginação na API.
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 20
+    'PAGE_SIZE': 20,
+    # Versionamento da API.
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.QueryParameterVersioning',
+
 }
