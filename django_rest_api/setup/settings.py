@@ -132,7 +132,8 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
+    'escola.permissions.CustomDjangoModelPermission',
+    # 'rest_framework.permissions.IsAuthenticated',
     ],
     # Adiciona paginação na API.
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
@@ -148,5 +149,5 @@ REST_FRAMEWORK = {
         'anon': '20/day',
         'user': '50/day'
     }
-
 }
+

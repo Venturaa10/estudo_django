@@ -42,6 +42,7 @@ class MatriculaViewSet(viewsets.ModelViewSet):
     queryset = Matricula.objects.all().order_by('id')
     serializer_class = MatriculaSerializer
     throttle_classes = [UserRateThrottle, MatriculaAnonRateThrottle]
+    http_method_names = ["get", "post"] # Metodos HTTP permitidos na API, nesse caso permitindo apenas leitura e criação de objetos na API.
 
 
 # Utilizando o modulo "generics"
