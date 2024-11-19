@@ -10,6 +10,7 @@ Explicação abaixa serve para tanto para estudantes quanto cursos
 --> http://127.0.0.1:8000/estudantes/2/matriculas/ -> Rota para visualizar os cursos em que o estudante associado ao "id" está matriculado.
 --> http://127.0.0.1:8000/cursos/1/matriculas/ -> Lista os estudantes que estão matriculados no curso associado ao "id" do curso.
 '''
+
 # Parametros -> prefixo, ViewSetName, basename='nome'
 # Registro das rotas.
 router = routers.DefaultRouter() # Gera automaticamente as rotas CRUD para cada ViewSet.

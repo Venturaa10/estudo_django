@@ -5,6 +5,8 @@ from rest_framework import viewsets, generics, filters # Importa viewsets, gener
 # from rest_framework.authentication import BasicAuthentication
 # from rest_framework.permissions import IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
+from escola.throttles import MatriculaAnonRateThrottle
 
 '''
 --> Os nomes das classes seguem uma nomeclatura com a finalidade de manter boas praticas de legibilidade do codigo.
@@ -16,7 +18,7 @@ Versionamento da API de Estudante
 '''
 
 class EstudanteViewSet(viewsets.ModelViewSet):
-    queryset = Estudante.objects.all() # Armazena os objetos do modelo.
+    queryset = Estudante.objects.all().order_by('id') # Armazena os objetos do modelo.
     # Codigo comentado para a função funcionar corretamente.
     # serializer_class = EstudanteSerializer # O Serializer responsavél pelo modelo
     # Adiciona os filtros na API REST.
@@ -32,18 +34,21 @@ class EstudanteViewSet(viewsets.ModelViewSet):
 
 
 class CursoViewSet(viewsets.ModelViewSet):
-    queryset = Curso.objects.all()
+    queryset = Curso.objects.all().order_by('id')
     serializer_class = CursoSerializer
 
+
 class MatriculaViewSet(viewsets.ModelViewSet):
-    queryset = Matricula.objects.all()
+    queryset = Matricula.objects.all().order_by('id')
     serializer_class = MatriculaSerializer
+    throttle_classes = [UserRateThrottle, MatriculaAnonRateThrottle]
+
 
 # Utilizando o modulo "generics"
 class ListaMatriculaEstudante(generics.ListAPIView):
     def get_queryset(self):
         # Filtra as matriculas associadas ao estudante, onde o id é passado como parametro na URL
-        queryset = Matricula.objects.filter(estudante_id=self.kwargs['pk'])
+        queryset = Matricula.objects.filter(estudante_id=self.kwargs['pk']).order_by('id')
         return queryset
     
     serializer_class = ListaMatriculasEstudanteSerializer
@@ -51,7 +56,7 @@ class ListaMatriculaEstudante(generics.ListAPIView):
 
 class ListaMatriculaCurso(generics.ListAPIView):
     def get_queryset(self):
-        queryset = Matricula.objects.filter(curso_id=self.kwargs['pk'])
+        queryset = Matricula.objects.filter(curso_id=self.kwargs['pk']).order_by('id')
         return queryset
     
     serializer_class = ListaMatriculasCursoSerializer
