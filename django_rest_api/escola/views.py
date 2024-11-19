@@ -17,11 +17,18 @@ Versionamento da API de Estudante
 --> Rota do Endpoint V2 da API: http://127.0.0.1:8000/estudantes/?version=v2
 '''
 
+
 class EstudanteViewSet(viewsets.ModelViewSet):
+    ''' ViewSet do serializer de "EstudanteSerializer", responsabilidades
+    --> queryset -> Retorna todos os objetos do models de "Estudante" e realiza a ordenação com base no "id" dos objetos.
+    # Filtros dos objetos da API.
+    --> filter_backends -> Define os filters permitidos endpoint da APIs.
+    --> ordering_fields -> Define quais campos podem ser usados para ordenar os resultados da API.
+    --> search_fields -> Define os campos onde é possivel realizar a busca do objeto na API.
+    # Versionamento do Serializer
+    --> Metodo get_serializer_class -> Responsavel pela exibição do Serializer de acordo com a versão.
+    '''
     queryset = Estudante.objects.all().order_by('id') # Armazena os objetos do modelo.
-    # Codigo comentado para a função funcionar corretamente.
-    # serializer_class = EstudanteSerializer # O Serializer responsavél pelo modelo
-    # Adiciona os filtros na API REST.
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
     ordering_fields = ['nome']
     search_fields = ['nome', 'cpf']
@@ -34,11 +41,19 @@ class EstudanteViewSet(viewsets.ModelViewSet):
 
 
 class CursoViewSet(viewsets.ModelViewSet):
+    '''ViewSet do serializer de "CursoSerializer", responsabilidades:
+    --> queryset -> Retorna todos os objetos do models de "Curso" e realiza a ordenação com base no "id" dos objetos.
+    '''
     queryset = Curso.objects.all().order_by('id')
     serializer_class = CursoSerializer
 
 
 class MatriculaViewSet(viewsets.ModelViewSet):
+    '''ViewSet do serializer de "MatriculaSerializer", responsabilidades:
+    --> queryset -> Retorna todos os objetos do models de "Matricula" e realiza a ordenação com base no "id" dos objetos.
+    --> throttle_classes -> Define o limite de acessos a API para usuarios autenticados e anonimos, quantidades estão configuradas em settings.
+    --> http_method_names -> Define quais metodos HTTP são permitidos nesse viewSet.
+    '''
     queryset = Matricula.objects.all().order_by('id')
     serializer_class = MatriculaSerializer
     throttle_classes = [UserRateThrottle, MatriculaAnonRateThrottle]
@@ -47,6 +62,12 @@ class MatriculaViewSet(viewsets.ModelViewSet):
 
 # Utilizando o modulo "generics"
 class ListaMatriculaEstudante(generics.ListAPIView):
+    '''
+    Descrição da View:
+    - Lista Matriculas por id de Estudante
+    Parâmetros:
+    - pk (int): O identificador primário do objeto. Deve ser um número inteiro.
+    '''
     def get_queryset(self):
         # Filtra as matriculas associadas ao estudante, onde o id é passado como parametro na URL
         queryset = Matricula.objects.filter(estudante_id=self.kwargs['pk']).order_by('id')
@@ -56,6 +77,12 @@ class ListaMatriculaEstudante(generics.ListAPIView):
 
 
 class ListaMatriculaCurso(generics.ListAPIView):
+    '''
+    Descrição da View:
+    - Lista Matriculas por id de Curso
+    Parâmetros:
+    - pk (int): O identificador primário do objeto. Deve ser um número inteiro.
+    '''
     def get_queryset(self):
         queryset = Matricula.objects.filter(curso_id=self.kwargs['pk']).order_by('id')
         return queryset
