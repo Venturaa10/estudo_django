@@ -8,6 +8,15 @@ from escola.validators import cpf_invalido, nome_invalido, celular_invalido # Im
 --> Os nomes das classes seguem uma nomeclatura com a finalidade de manter boas praticas de legibilidade do codigo.
  '''
 class EstudanteSerializer(serializers.ModelSerializer):
+    '''
+    - Serializador baseado no modelo "Estudante".
+    - Meta:
+        - model -> Especifica o modelo "Estudante" que sera serializado.
+        - fields -> Lista os campos do modelo que serão incluídos no serializador.
+    - validate():
+        - Parametros: Recebe o proprio objeto e o dado desse objeto.
+        - Funções: Realiza as validações dos campos informados no serializador.             
+    '''
     class Meta:
         model = Estudante # Models na qual o serializer está associado.
         fields = ['id', 'nome', 'email', 'cpf', 'data_nascimento', 'celular'] # Campos que serão exibidos. 
@@ -30,18 +39,31 @@ all -> Indica que vai ser usado todos os campos do modelo
 exclude = [ ] -> Indica que nenhum campo será excluído
 '''
 class CursoSerializer(serializers.ModelSerializer):
+    '''
+    - Serializador baseado no modelo "Curso".
+    - Meta:
+        - model -> Especifica o modelo "Curso" que sera serializado.
+        - fields -> Incluí todos os campos do modelo no serializador.
+    '''
     class Meta:
         model = Curso
         fields = '__all__'
 
 
 class MatriculaSerializer(serializers.ModelSerializer):
+    '''
+    - Serializador baseado no modelo "Matricula".
+    - Meta:
+      - model -> Especifica o modelo "Matricula" que sera serializado.
+      - exclude -> Lista de campos que serão excluídos do serializador. Neste caso, nenhum campo é excluído, por isso, todos os campos do modelo serão incluídos.
+    '''
     class Meta:
         model = Matricula
         exclude = []
 
 
 class ListaMatriculasEstudanteSerializer(serializers.ModelSerializer):
+
     curso = serializers.ReadOnlyField(source='curso.descricao') # Busca valor do campo "dicionario" no objeto relacionado "curso" e define como somente leitura
     periodo = serializers.SerializerMethodField()
     class Meta:
